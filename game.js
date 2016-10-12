@@ -17,7 +17,7 @@ var randomWord = function(wordBank) {
     return wordBank[Math.floor(Math.random() * wordBank.length)]
 }
 
-module.exports = function findWordBank(category) {
+module.exports.findWordBank = function(category) {
     var chosenWord;
     switch (category) {
         case 'Programming Languages':

@@ -1,31 +1,36 @@
 // Both letter.js and word.js should be constructor files:
 // letter.js should control whether or not a letter appears as a "_" or as itself on-screen.
 
-module.exports = function LetterDisplay(currentWord, lettersGuessed) {
-    this.wordArr = currentWord.toLowerCase().split('');
+module.exports.LetterDisplay = function(currentWord, lettersGuessed) {
+    this.wordArr = '';
     this.display = '';
     this.lettersInDisplay = [];
-    this.createDisplay = function () {
-        if (lettersGuessed.length === 0) {
-            wordArr.forEach(function() {
-                display += '_ ';
-            })
+    this.createDisplay = function(lettersGuessed) {
+        this.wordArr = currentWord.toLowerCase().split('');
+        this.display = '';
+        console.log(this.wordArr)
+        console.log(this.lettersInDisplay);
+        if ((lettersGuessed.length === 0) && (this.lettersInDisplay.length === 0)) {
+            for (var h=0;h<this.wordArr.length;h++) {
+                this.display += '_ ';
+            } 
         }
         else {
-            for (var i=0;i<wordArr.length;i++) {
-                for (var j=0;j<lettersGuessed.length;j++) {
-                    if (wordArr[i] === lettersGuessed[j]) {
-                        display += lettersGuessed[j] + ' ';
-                        lettersInDisplay.push(lettersGuessed[j]);
+            for (var i=0;i<this.wordArr.length;i++) {
+                var letterUsed = false;
+                for (var j=0;j<this.lettersInDisplay.length;j++) {
+                    if ((this.wordArr[i] === this.lettersInDisplay[j]) && (letterUsed === false)) {
+                       this.display += this.lettersInDisplay[j] + ' ';
+                       letterUsed = true;
                     }
-                    else {
-                        display += wordArr[i];
-                    }
+                }
+                if (letterUsed === false) {
+                    this.display += '_ ';
                 }
             }
         }
-        console.log(display)
-        return display;
+        console.log(this.display)
+        return this.display;
     }   
 }
 

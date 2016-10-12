@@ -5,22 +5,28 @@
 // if in word, +correct letters guessed
 // if in word and letters guessed, no penalty
 
-modules.exports = function WordEval(chosenWord) {
+module.exports.WordEval = function(chosenWord, lettersGuessed, currentLetter) {
     this.chosenWord = chosenWord;
-    this.lettersGuessed = [];
     this.guesses = 15;
     this.lettersInDisplay = [];
+    this.currentLetter = currentLetter;
     this.wordChecker = function() {
         var wordArr = chosenWord.toLowerCase().split('');
-        if (this.lettersInDisplay.indexOf(currentLetter) > -1) {
-            if (wordArr.indexOf(currentLetter) > -1) {
-                this.lettersInDisplay.push(currentLetter);
+        console.log('lettersInDisplay: ' + this.lettersInDisplay)
+        console.log('currentLetter: '+this.currentLetter)
+        if (this.lettersInDisplay.indexOf(this.currentLetter) === -1) {
+            console.log('line 16')
+            if (wordArr.indexOf(this.currentLetter) > -1) {
+                this.lettersInDisplay.push(this.currentLetter);
                 this.guesses--;
+                console.log('in word')
             }
             else {
-                this.lettersGuessed.push(currentLetter);
+                lettersGuessed.push(this.currentLetter);
                 this.guesses--;
+                console.log('not in word')
             }
         }
+        return this.lettersInDisplay;
     }
 }

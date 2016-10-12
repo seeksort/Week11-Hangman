@@ -21,6 +21,8 @@ var
 var gameActive = true;
 var categoryChosen = false;
 var letterChosen = false;
+var lettersGuessed = [];
+var guesses = 15;
 var letterConst, wordConst, currentWord, currentLetter;
 
 // New game
@@ -45,28 +47,42 @@ function getCategoryAndWord() {
             name: 'category'
         }
         ]).then(function(ans) {
-            var randomChosenWord = game.findWordBank(ans.category);
+            console.log(ans.category);
+            currentWord = game.findWordBank(ans.category);
+            console.log(currentWord);//debug
             categoryChosen = true;
-            currentWord = randomChosenWord;
-            letterConst = new letter.LetterDisplay(randomChosenWord, lettersGuessed);
-            wordConst = new word.WordEval(randomChosenWord);
-            console.log(randomChosenWord);//debug
-            console.log(letter.lettersDisplay(currentWord, lettersGuessed));
+            letterConst = new letter.LetterDisplay(currentWord, lettersGuessed);
+            console.log(letterConst.createDisplay(lettersGuessed));
+            wordConst = new word.WordEval(currentWord, lettersGuessed, '');
+            getLetter();
         });
     }
 }
 
 // Request letter
 function getLetter() {
-    if (categoryChosen) {
-        inquirer.prompt([
+    if (categoryChosen && guesses > 0) {
+        inquirer.prompt([{
             type: 'input',
             message: 'Please enter a letter.',
             name: 'letter'
-        ]).then(function(ans)){
+        }]).then(function(ans){
             letterChosen = true;
-            return ans.letter;
-        }
+            wordConst.currentLetter = ans.letter.toString();
+            console.log(ans.letter);
+            wordConst.wordChecker();
+            console.log('before' + letterConst.lettersInDisplay);
+            letterConst.lettersInDisplay = wordConst.lettersInDisplay;
+            console.log('line 73 ' + letterConst.lettersInDisplay)
+            console.log(lettersGuessed)
+            console.log(letterConst.createDisplay(lettersGuessed));
+            guesses = wordConst.guesses;
+            letterChosen = false;
+            getLetter();
+        });
+    }
+    else {
+        console.log('Round over!')
     }
 }
 
@@ -74,14 +90,20 @@ function getLetter() {
 
 // Big function that takes in Letter request, current guesses, letters guessed, blanks display, and Word eval function as parameters
 function waitingForLetter() {
-    
-    return getLetter();
+    while (guesses > 0) {
+        if (categoryChosen) {
+            getLetter();
+        }
+    }
 }
 
 newGame();
+
 getCategoryAndWord();
+// console.log(game.findWordBank('Programming Languages'));
+// letterConst = new letter.LetterDisplay('Python', []);
 
-
+// console.log(letterConst.createDisplay());
 
 
 
