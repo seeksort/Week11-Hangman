@@ -28,5 +28,5 @@ module.exports.LetterDisplay = function(currentWord, lettersGuessed, lettersInDi
             }
         }
     return this.display;
-    }
-}
+    };
+};

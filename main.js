@@ -14,7 +14,7 @@ var lettersGuessed = [];
 var guesses = 15;
 var wins = 0;
 var losses = 0;
-var letterConst, wordConst, currentWord, currentLetter;
+var letterConst, wordConst, currentWord;
 
 // New game
 function newGame() {
@@ -38,14 +38,12 @@ function getCategoryAndWord() {
             name: 'category'
         }
         ]).then(function(ans) {
-            console.log(ans.category);
             currentWord = game.findWordBank(ans.category);
-            //console.log('currentWord: ' + currentWord);//debug
             categoryChosen = true;
             wordConst = new word.WordEval(currentWord, lettersGuessed, '');
             wordConst.initialDisplay();
             letterConst = new letter.LetterDisplay(currentWord, lettersGuessed, wordConst.lettersInDisplay);
-            console.log(letterConst.createDisplay(lettersGuessed));
+            console.log(letterConst.createDisplay(lettersGuessed) + '\n');
             getLetter();
         });
     }
@@ -63,28 +61,28 @@ function getLetter() {
             wordConst.wordChecker();
             gameActive = wordConst.isGameActive();
             letterConst.lettersInDisplay = wordConst.lettersInDisplay;
-            console.log('Letters guessed: ' + lettersGuessed)
             console.log(letterConst.createDisplay(lettersGuessed));
+            console.log('Letters guessed: ' + lettersGuessed);
             guesses = wordConst.guesses;
             console.log('Guesses left: ' + guesses + '\n');
             getLetter();
         });
     }
     else {
-        console.log('\n~*~*~*~*~ END OF ROUND ~*~*~*~*~\n')
+        console.log('\n~*~*~*~*~ END OF ROUND ~*~*~*~*~\n');
         if (wordConst.wordGuessed === true) {
             wins++;
-            console.log('You win!')
+            console.log('You win!');
         }
         else {
             losses++;
-            console.log('You ran out of guesses!')
-            console.log('The word was "' + currentWord + '"')
+            console.log('You ran out of guesses!');
+            console.log('The word was "' + currentWord + '"');
         }
-        console.log('\n~*~*~*~*~ Your Stats ~*~*~*~*~')
-        console.log('Wins: ' + wins)
-        console.log('Losses: ' + losses + '\n')
-        gameReset()
+        console.log('\n~*~*~*~*~ Your Stats ~*~*~*~*~');
+        console.log('Wins: ' + wins);
+        console.log('Losses: ' + losses + '\n');
+        gameReset();
     }
 }
 
@@ -104,7 +102,7 @@ function gameReset() {
             getCategoryAndWord();
         }
         else {
-            console.log('\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~')
+            console.log('\n~*~*~*~*~*~*~*~*~*~*~*~*~*~*~');
             console.log('~*~*~*~*~ Farewell! ~*~*~*~*~');
             console.log('~*~*~*~*~*~*~*~*~*~*~*~*~*~*~\n\n');
         }

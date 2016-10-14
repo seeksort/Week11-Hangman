@@ -3,19 +3,19 @@
 // word banks
 var wbLanguages = [
     'JavaScript', 'Python', 'Ruby', 'FORTRAN', 'Go', 'Lisp', 'Java', 'PHP', 'COBOL', 'Assembly', 'Basic', 'Rust', 'Perl', 'Haskell'
-] // 7 - 9
+];
 
 var wbConcepts = [
     'abstraction', 'big-o notation', 'recursion', 'data structure'
-] // 10, 
+];
 
 var wbAlgorithms = [
     'Bubble Sort', 'Monte Carlo', 'breadth-first search', 'depth-first search', 'Towers of Hanoi'
-]
+];
 
 var randomWord = function(wordBank) {
-    return wordBank[Math.floor(Math.random() * wordBank.length)]
-}
+    return wordBank[Math.floor(Math.random() * wordBank.length)];
+};
 
 module.exports.findWordBank = function(category) {
     var chosenWord;
@@ -30,8 +30,8 @@ module.exports.findWordBank = function(category) {
             chosenWord = randomWord(wbAlgorithms);
             break;
         default:
-            console.log('Error occurred')
+            console.log('Error occurred');
             break;
     }
     return chosenWord.toLowerCase();
-}
+};
