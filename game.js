@@ -3,14 +3,14 @@
 // word banks
 var wbLanguages = [
     'JavaScript', 'Python', 'Ruby', 'FORTRAN', 'Go', 'Lisp', 'Java', 'PHP', 'COBOL', 'Assembly', 'Basic', 'Rust', 'Perl', 'Haskell'
-]
+] // 7 - 9
 
 var wbConcepts = [
-    'abstraction', 'big-o notation', 'algorithm', 'data structure'
-]
+    'abstraction', 'big-o notation', 'recursion', 'data structure'
+] // 10, 
 
 var wbAlgorithms = [
-    'Bubble Sort', 'Quicksort', 'Breadth-first search', 'depth-first search'
+    'Bubble Sort', 'Monte Carlo', 'breadth-first search', 'depth-first search', 'Towers of Hanoi'
 ]
 
 var randomWord = function(wordBank) {
@@ -33,5 +33,5 @@ module.exports.findWordBank = function(category) {
             console.log('Error occurred')
             break;
     }
-    return chosenWord
+    return chosenWord.toLowerCase();
 }
